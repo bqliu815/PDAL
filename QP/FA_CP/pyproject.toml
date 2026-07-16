@@ -1,0 +1,67 @@
+[build-system]
+requires = ["scikit-build-core>=0.9.0", "pybind11>=2.11.0", "numpy", "scipy"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "fa_cp"
+version = "0.1.3"
+description = "Python bindings for FA_CP, GPU accelerated first order solver for Quadratic Programming"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.8"
+authors = [
+  { name = "Benqi Liu", email = "bqliu@pku.edu.cn" }
+]
+dependencies = ["numpy>=1.21", "scipy>=1.8"]
+
+[tool.scikit-build]
+build-dir = "build/{wheel_tag}"
+cmake.version = ">=3.24"
+cmake.build-type = "Release"
+wheel.packages = ["python/fa_cp"]
+sdist.include = ["test/**", "pyproject.toml", "README.md", "LICENSE", "NOTICE"]
+
+[tool.scikit-build.cmake.define]
+CMAKE_CUDA_ARCHITECTURES = "all"
+CMAKE_CUDA_STANDARD = "17"
+FA_CP_BUILD_PYTHON = "ON"
+FA_CP_BUILD_STATIC_LIB = "ON"
+FA_CP_BUILD_SHARED_LIB = "OFF"
+FA_CP_BUILD_CLI = "OFF"
+FA_CP_BUILD_TESTS = "OFF"
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8",
+  "pytest-cov>=4",
+  "numpy",
+  "scipy"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+addopts = """
+-q
+-ra
+--strict-markers
+--maxfail=1
+--cov=fa_cp
+--cov-report=term-missing
+--cov-report=xml
+"""
+markers = [
+  "gpu: requires a CUDA-capable GPU"
+]
+xfail_strict = true
+filterwarnings = [
+  "error::FutureWarning",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["fa_cp"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+skip_covered = true

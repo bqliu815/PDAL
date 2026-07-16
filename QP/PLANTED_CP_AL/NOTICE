@@ -1,0 +1,8 @@
+RHR-CP-AL planted-KKT solver
+
+Copyright 2026 Benqi Liu.
+
+This directory contains the CP_AL source tree used for the subproblem-based
+RHR-CP-AL row in the planted-KKT QP experiment. Benqi Liu maintains the CP_AL
+algorithmic modifications and release profile. Required Apache-2.0 notices for
+retained low-level components remain in LICENSE and the source-file headers.

@@ -1,0 +1,18 @@
+CP_AL and FA_CP Research Software
+
+Copyright 2026 Benqi Liu.
+
+This repository contains the CP_AL and FA_CP algorithmic implementations,
+experiment policies, benchmark wrappers, reproducibility checks, and
+documentation used in "Restarted Reflected Halpern Acceleration for Augmented
+Primal--Dual Methods".
+
+The CP_AL and FA_CP algorithmic modifications and all release-specific material
+are maintained by Benqi Liu. Portions of the low-level GPU infrastructure and
+input utilities are redistributed under the Apache License 2.0. Their original
+copyright notices remain in the corresponding source files. A consolidated
+origin and modification record is provided in THIRD_PARTY_NOTICES.md.
+
+Names of external solvers appearing in benchmark scripts or result tables
+identify comparison methods only. They are not names for the CP_AL or FA_CP
+implementations released here.

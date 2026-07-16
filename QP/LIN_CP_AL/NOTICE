@@ -1,0 +1,16 @@
+RHR-Lin-CP-AL solver
+
+Copyright 2026 Benqi Liu.
+
+This directory contains Benqi Liu's source snapshot used for the
+RHR-Lin-CP-AL row in "Restarted Reflected Halpern Acceleration for Augmented
+Primal--Dual Methods." Its non-augmented branch supplies the corresponding
+linearized control. The research additions include the linearized augmented
+primal--dual update, reflected Halpern iteration, experiment profiles, and
+release documentation.
+
+Low-level GPU QP infrastructure and input utilities are adapted from
+Apache-2.0 licensed first-order optimization software. Original copyright and
+license notices are retained in the source files and LICENSE. Related solvers
+and papers are cited for attribution and comparison; this release is not
+affiliated with or endorsed by their authors or institutions.

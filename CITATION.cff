@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the accompanying paper."
+title: "CP_AL and FA_CP research software"
+type: software
+version: 0.2.0
+authors:
+  - family-names: Liu
+    given-names: Benqi
+    affiliation: Beijing International Center for Mathematical Research, Peking University
+repository-code: "https://github.com/bqliu815/PDAL"
+license: Apache-2.0
+preferred-citation:
+  type: article
+  title: "Restarted Reflected Halpern Acceleration for Augmented Primal--Dual Methods"
+  year: 2026
+  authors:
+    - family-names: Liu
+      given-names: Benqi
+    - family-names: Cao
+      given-names: Ju
+    - family-names: Yin
+      given-names: Wotao
+    - family-names: Wen
+      given-names: Zaiwen

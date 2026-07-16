@@ -1,0 +1,124 @@
+
+### C Interface
+
+FA_CP provides a C API for directly solving QPs in memory, defined in header file [`include/fa_cp.h`](../include/fa_cp.h).
+
+#### Functions and Parameters
+
+The C API involves two main functions:
+
+```c
+qp_problem_t *create_qp_problem(
+    const double *objective_c,           // objective vector (length n)
+    const matrix_desc_t *Q_desc,         // quadratic sparse matrix (n×n)
+    const matrix_desc_t *R_desc,         // quadratic low-rank matrix (n×m)
+    const matrix_desc_t *A_desc,         // constraint matrix (m×n)
+    const double *con_lb,                // constraint lower bounds (length m)
+    const double *con_ub,                // constraint upper bounds (length m)
+    const double *var_lb,                // variable lower bounds (length n)
+    const double *var_ub,                // variable upper bounds (length n)
+    const double *objective_constant     // scalar objective offset
+);
+
+fa_cp_result_t* solve_qp_problem(
+    const qp_problem_t* prob,
+    const fa_cp_parameters_t* params    // NULL → use default parameters
+);
+```
+
+`create_qp_problem` parameters:
+- `objective_c`: Objective vector. If `NULL`, defaults to all zeros.
+- `Q_desc`: Matrix descriptor. Supports `matrix_dense`, `matrix_csr`, `matrix_csc`, `matrix_coo`.
+- `R_desc`: Matrix descriptor. Supports `matrix_dense`, `matrix_csr`, `matrix_csc`, `matrix_coo`.
+- `A_desc`: Matrix descriptor. Supports `matrix_dense`, `matrix_csr`, `matrix_csc`, `matrix_coo`.
+- `con_lb`: Constraint lower bounds. If `NULL`, defaults to all `-INFINITY`.
+- `con_ub`: Constraint upper bounds. If `NULL`, defaults to all `+INFINITY`.
+- `var_lb`: Variable lower bounds. If `NULL`, defaults to all `-INFINITY`.
+- `var_ub`: Variable upper bounds. If `NULL`, defaults to all `+INFINITY`.
+- `objective_constant`: Scalar constant term added to the objective value. If `NULL`, defaults to `0.0`.
+
+
+`solve_qp_problem` parameters:
+- `prob`: An QP problem built with `create_qp_problem`.
+- `params`: Solver parameters. If `NULL`, the solver will use default parameters.
+
+#### Example: Solving a Small QP
+```c
+#include "fa_cp.h"
+#include <math.h>
+#include <stdio.h>
+
+int main() {
+    int m = 3; // number of constraints
+    int n = 2; // number of variables
+
+    // 1. Define Dense Constraint Matrix A
+    double A[3][2] = {
+        {1.0, 1.0},
+        {-1.0, 2.0},
+        {2.0, 1.0}
+    };
+
+    matrix_desc_t A_desc;
+    A_desc.m = m; A_desc.n = n;
+    A_desc.fmt = matrix_dense;
+    A_desc.zero_tolerance = 0.0;
+    A_desc.data.dense.A = &A[0][0];
+
+    // 2. Define Quadratic Objective Matrix Q
+    // Minimize 0.5 * (4*x0^2 + 2*x1^2) -> Q = diag(4, 2)
+    double Q[2][2] = {
+        {4.0, 0.0},
+        {0.0, 2.0}
+    };
+
+    matrix_desc_t Q_desc;
+    Q_desc.m = n; Q_desc.n = n;
+    Q_desc.fmt = matrix_dense;
+    Q_desc.zero_tolerance = 0.0;
+    Q_desc.data.dense.A = &Q[0][0];
+
+    // 3. Linear Objective coefficients c
+    double c[2] = {-2.0, -6.0};
+
+    // 4. Constraint bounds: l <= A x <= u
+    double l[3] = {-INFINITY, -INFINITY, -INFINITY};
+    double u[3] = {2.0, 2.0, 3.0};
+    
+    // 5. Variable bounds: x >= 0
+    double lb[2] = {0.0, 0.0};
+    double ub[2] = {INFINITY, INFINITY};
+
+    // 6. Build the QP problem
+    // Note: We pass NULL for R_desc (low-rank factor) and objective_constant
+    qp_problem_t* prob = create_qp_problem(
+        c,          // objective_c
+        &Q_desc,    // Q_desc
+        NULL,       // R_desc
+        &A_desc,    // A_desc
+        l,          // con_lb
+        u,          // con_ub
+        lb,         // var_lb
+        ub,         // var_ub
+        NULL        // objective_constant
+    );
+
+    // 7. Solve (NULL → use default parameters)
+    fa_cp_result_t* res = solve_qp_problem(prob, NULL);
+
+    // 8. Output results
+    printf("Termination reason: %d\n", res->termination_reason);
+    printf("Primal objective: %.6f\n", res->primal_objective_value);
+    printf("Dual objective:   %.6f\n", res->dual_objective_value);
+    printf("Solution:\n");
+    for (int j = 0; j < res->num_variables; ++j) {
+        printf("  x[%d] = %.6f\n", j, res->primal_solution[j]);
+    }
+
+    // 9. Cleanup
+    qp_problem_free(prob);
+    fa_cp_result_free(res);
+
+    return 0;
+}
+```

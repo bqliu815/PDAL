@@ -1,0 +1,25 @@
+FA_CP
+
+Copyright 2026 Benqi Liu.
+
+This repository contains the FA_CP implementation used for the quadratic
+programming experiments in the paper "Restarted Reflected Halpern
+Acceleration for Augmented Primal--Dual Methods".
+
+The main additions in this distribution include the FA_CP augmented
+fixed-point/correction update, guarded sigma policy, Maros--Meszaros Table 1
+benchmark scripts, and release renaming/documentation. Benchmark formulations
+that use lifted or eliminated variables are expected to be supplied through the
+input data/preprocessing pipeline used to create the QPS/MPS files.
+
+Some low-level GPU solver infrastructure and QP input/benchmarking utilities
+are adapted from Apache-2.0 licensed first-order optimization software. The
+FA_CP augmented fixed-point/correction update, guarded sigma policy, benchmark
+policies, release scripts, and documentation in this distribution are provided
+as Benqi Liu's research implementation. Original third-party copyright and
+license notices are retained in the corresponding source files.
+
+Related restarted primal-dual QP papers and public software are cited only for
+benchmark context and comparative baselines. This repository is an independent
+research implementation and is not affiliated with, sponsored by, or endorsed
+by any third-party authors or their institutions.

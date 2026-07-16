@@ -1,0 +1,49 @@
+name: Code checks
+
+"on":
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: experiments/random_lp/requirements.txt
+      - name: Install test dependencies
+        run: >-
+          python -m pip install pytest
+          -r experiments/random_lp/requirements.txt
+      - name: Check Python and shell syntax
+        run: |
+          python -m py_compile \
+            experiments/random_lp/*.py \
+            experiments/lp_benchmarks/*.py \
+            experiments/qp_linearized/*.py \
+            experiments/qp_maros/*.py \
+            experiments/modal_sigma/*.py
+          bash -n \
+            experiments/random_lp/run_random_lp.sbatch \
+            experiments/lp_benchmarks/run_baseline_group.sbatch \
+            experiments/lp_benchmarks/submit_lp_baselines.sh \
+            experiments/qp_linearized/run_qp_linearized.sbatch \
+            experiments/qp_linearized/run_profile_chunk.sh \
+            QP/LIN_CP_AL/run_table1_134.sbatch \
+            QP/FA_CP/run_table1_134.sbatch \
+            QP/FA_CP/scripts/run_qp_table1_134.sbatch
+      - name: Run code-level tests
+        run: python -m pytest -q
+      - name: Run LP source checks
+        working-directory: LP/CP_AL
+        run: >-
+          python -m pytest -q
+          test/test_feature_policy_source.py
+          test/test_manifest_builder.py
+          test/test_structural_tail_cut_source.py

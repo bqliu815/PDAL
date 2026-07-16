@@ -1,0 +1,39 @@
+# Release archives
+*.zip
+*.tar.gz
+
+# Build products
+build/
+build_*/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Generated inputs and solver outputs
+results/
+paper_runs/
+experiments/qp_linearized/reference_manifest.csv
+experiments/qp_linearized/reference_metadata.json
+experiments/qp_linearized/source_provenance.json
+*.log
+*.out
+*.err
+
+# Python/cache files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Editor/system files
+.DS_Store
+.vscode/
+.idea/

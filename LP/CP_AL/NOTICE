@@ -1,0 +1,22 @@
+CP_AL
+
+Copyright 2026 Benqi Liu.
+
+This repository contains the CP_AL implementation used for the linear
+programming experiments in the paper "Restarted Reflected Halpern
+Acceleration for Augmented Primal--Dual Methods".
+
+The main additions in this distribution include the CP_AL augmented
+primal--dual update, generic restart and augmentation controllers, an
+identity-free matrix-feature equilibration rule, benchmark scripts, and
+release documentation. The released benchmark policy does not dispatch on a
+benchmark name, data-set path, split, tolerance, or instance identity.
+
+Some low-level GPU solver infrastructure is adapted from Apache-2.0 licensed
+first-order optimization software. The CP_AL algorithmic components, feature
+policy, release scripts, and documentation in this distribution are provided
+as Benqi Liu's research implementation. Original third-party copyright and
+license notices are retained in the corresponding source files.
+
+This repository is not affiliated with, sponsored by, or endorsed by any
+third-party authors or their institutions.

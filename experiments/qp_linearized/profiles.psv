@@ -1,0 +1,6 @@
+name|source_dir|binary_name|binary_env|eval_freq|extra_args
+pdhcg_original||pdhcg|PDHCG_II_BIN|200|
+rhr_cpal_subproblem|QP/PLANTED_CP_AL|rhr_cp_al||200|--sigma_init 0 --reflection_coefficient 1
+rhr_facp_subproblem|QP/PLANTED_FA_CP|rhr_fa_cp||200|--al_sigma 0 --reflection_coefficient 1
+rhr_lin_pdhg|QP/LIN_CP_AL|rhr_lin_cp_al||200|--no_al_qp --reflection_coefficient 0
+rhr_lin_cpal|QP/LIN_CP_AL|rhr_lin_cp_al||400|--sigma_init 0.1 --reflection_coefficient 0.7 --pock_chambolle_alpha 1.5

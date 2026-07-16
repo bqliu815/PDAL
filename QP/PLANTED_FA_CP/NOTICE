@@ -1,0 +1,8 @@
+RHR-FA-CP planted-KKT solver
+
+Copyright 2026 Benqi Liu.
+
+This directory contains the FA_CP source tree used for the subproblem-based
+RHR-FA-CP row in the planted-KKT QP experiment. Benqi Liu maintains the FA_CP
+algorithmic modifications and release profile. Required Apache-2.0 notices for
+retained low-level components remain in LICENSE and the source-file headers.
