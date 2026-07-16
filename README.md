@@ -52,6 +52,14 @@ extensions to be built first.
 Please cite the accompanying paper when using this software. Citation metadata
 is provided in [`CITATION.cff`](CITATION.cff).
 
+## Authors and contact
+
+- Benqi Liu: [bqliu@pku.edu.cn](mailto:bqliu@pku.edu.cn)
+- Ju Cao: [2300010612@stu.pku.edu.cn](mailto:2300010612@stu.pku.edu.cn)
+- Wotao Yin: [wotao.yin@alibaba-inc.com](mailto:wotao.yin@alibaba-inc.com)
+- Zaiwen Wen (corresponding author):
+  [wenzw@pku.edu.cn](mailto:wenzw@pku.edu.cn)
+
 ## License
 
 This repository is released under the Apache License 2.0; see
